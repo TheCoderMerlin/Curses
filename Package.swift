@@ -9,7 +9,7 @@ let package = Package(
     .library(name: "Curses", targets: ["Curses"]),
   ], 
   dependencies: [
-    .package(url:  "../CNCURSES", from: "0.0.0"),
+    .package(url:  "https://github.com/TangoGolfDigital/Curses", from: "1.0.0"),
   ],
   targets: [
     .target(
@@ -17,23 +17,3 @@ let package = Package(
       path:"Sources"),
   ]
 )
-/*
-let package = Package(
-  name: "DeckOfPlayingCards",
-  products: [
-    .library(name: "DeckOfPlayingCards", targets: ["DeckOfPlayingCards"]),
-  ],
-  dependencies: [
-    .package(url: "https://github.com/apple/example-package-fisheryates.git", from: "2.0.0"),
-    .package(url: "https://github.com/apple/example-package-playingcard.git", from: "3.0.0"),
-  ],
-  targets: [
-    .target(
-      name: "DeckOfPlayingCards",
-      dependencies: ["FisherYates", "PlayingCard"]),
-    .testTarget(
-      name: "DeckOfPlayingCardsTests",
-      dependencies: ["DeckOfPlayingCards"]),
-  ]
-)
-*/
