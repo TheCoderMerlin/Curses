@@ -73,3 +73,71 @@ screen.startUp()
 screen.wait()
 ```
 
+### Writing to the Console
+Writing will occur at the current cursor position using the currently active attributes
+```swift
+screen.write("Hello, world!")
+```
+
+### Flushing changes to the Console
+**IMPORTANT:** Changes will not be visible on the console until a *refresh()* is invoked
+```swift
+screen.refresh()
+```
+
+### Moving the Cursor
+```swift
+// Move the cursor to an absolute position
+let cursor = screen.cursor
+cursor.position = Point(x:10, y:10)
+
+// Temporarily move the cursor to a new position
+cursor.pushPosition(newPosition:Point(x:0, y:0))
+screen.write("Cursor is at: \(cursor.position)")
+cursor.popPosition()
+```
+
+### Using Color
+Colors are always used in pairs, one for the foreground and one for the background.
+Before using color, Colors needs to be started up.
+```swift
+let colors = Colors.shared
+colors.startUp()
+
+// Set up standard color pairs on white background
+var colorPairs = [ColorPair]()
+for colorName in colors.colorNames() {
+    colorPairs.append(ColorPair(name:"\(colorName) on white", foreground:Color(name:colorName), background:Color(name:"white")))
+}
+
+// Use each of the color pairs on screen
+for pairName in colors.pairNames() {
+    let colorPair = ColorPair(name:pairName)
+    colorPair.on()
+    screen.write(colorPair.name)
+    colorPair.off()
+}
+
+// Refresh
+screen.refresh()
+```
+
+Custom colors may be defined by specifying red, green, and blue components in the range of 0 ... 1000.
+
+```swift
+let orange = Color(name:"orange", red:1000, green:165*3, blue:0)
+let black = Color(name:"black")
+
+let orangeOnBlack = ColorPair(name:"orange on black", foreground:orange, background:black)
+let blackOnOrange = ColorPair(name:"black on orange", foreground:Color(name:"black"), background:Color(name:"orange"))
+
+orangeOnBlack.on()
+screen.write("Orange on Black")
+orangeOnBlack.off()
+
+blackOnOrange.on()
+screen.write("Black on Orange")
+
+screen.refresh()
+```
+
