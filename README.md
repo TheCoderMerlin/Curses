@@ -141,3 +141,45 @@ screen.write("Black on Orange")
 screen.refresh()
 ```
 
+### Using the keyboard
+
+```swift
+let keyboard = Keyboard.shared
+
+while true {
+    let key = keyboard.getKey()
+
+    if key.keyType == .isCharacter {
+        cursor.position = Point(x:10, y:10)
+        screen.write("You pressed: \(key.character!)")
+        screen.clearToEndOfLine()
+        screen.refresh()
+    } else if key.keyType == .isControl {
+        cursor.position = Point(x:10, y:15)
+        screen.write("You pressed: CONTROL-\(key.control!)")
+        screen.clearToEndOfLine()
+        screen.refresh()
+    } else {
+        cursor.position = Point(x:10, y:20)
+        var label : String
+        switch (key.keyType) {
+        case .arrowDown: label = "Down"
+        case .arrowUp: label = "Up"
+        case .arrowRight: label = "Right"
+        case .arrowLeft: label = "Left"
+
+        case .function1: label = "F1"
+        case .function2: label = "F2"
+        case .function3: label = "F3"
+        case .function4: label = "F4"
+                                                                                                                                                                                                                                        
+        case .enter:     label = "ENTER"
+ 
+        default: label = "Other"
+        }
+        screen.write("You pressed a special key: \(label)")
+        screen.clearToEndOfLine()
+        screen.refresh()
+    }
+}
+```
