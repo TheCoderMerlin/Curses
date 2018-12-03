@@ -4,20 +4,21 @@ public class Screen {
     private let curses = Curses.shared
     
     public static let shared = Screen()
-    private let standardWindow : Window
+    private let standardWindow : Window? = nil
 
     // Explictly disable clients from creating objects of this class
     private init() {
-        standardWindow = Window()
     }
 
     // ============================== API ==============================
     public var window : Window {
-        return standardWindow
+        precondition(standardWindow != nil, "Screen.window is not available until after startUp")
+        return standardWindow!
     }
     
     public func startUp(handler:CursesHandlerProtocol? = nil) {
         curses.startUp(handler:handler)
+        standardWindow = Window()
     }
 
     public func shutDown() {
