@@ -12,6 +12,10 @@ public class Screen {
     }
 
     // ============================== API ==============================
+    var window : Window {
+        return standardWindow
+    }
+    
     public func startUp(handler:CursesHandlerProtocol? = nil) {
         curses.startUp(handler:handler)
     }
@@ -22,10 +26,6 @@ public class Screen {
 
     public func wait() {
         curses.wait()
-    }
-
-    public func window() -> Window {
-        return standardWindow
     }
 
 }
