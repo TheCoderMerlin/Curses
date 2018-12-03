@@ -15,7 +15,7 @@ public class Screen {
         precondition(standardWindow != nil, "Screen.window is not available until after startUp")
         return standardWindow!
     }
-    
+
     public func startUp(handler:CursesHandlerProtocol? = nil) {
         curses.startUp(handler:handler)
         standardWindow = Window()
@@ -24,6 +24,10 @@ public class Screen {
     public func shutDown() {
         curses.shutDown()
         standardWindow = nil
+    }
+
+    public func newWindow(name:String, position:Point, size:Size) -> Window {
+        return Window(name:name, position:position, size:size)
     }
 
     public func wait() {
