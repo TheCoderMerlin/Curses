@@ -1,20 +1,20 @@
 public class Cursor {
 
-    internal static let shared = Cursor()
     private let curses = Curses.shared
+    private unowned let window:Window
     private var positionStack = [Point]()
 
-    // Explicitly disable clients from creating objects of this class
-    private init() {
+    internal init(window:Window) {
+        self.window = window
     }
 
     // ============================== API ==============================
     public var position : Point {
         get {
-            return curses.cursorPosition()
+            return curses.cursorPosition(windowHandle:window.windowHandle)
         }
         set(newPosition) {
-            curses.move(to:newPosition)
+            curses.move(windowHandle:window.windowHandle, to:newPosition)
         }
     }
 

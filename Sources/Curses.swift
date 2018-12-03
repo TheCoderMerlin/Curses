@@ -76,12 +76,12 @@ internal class Curses {
         }
     }
 
-    func cursorPosition() -> Point {
-        return getCursorPosition(window:stdscr)
+    func cursorPosition(windowHandle:UnsafeMutablePointer<WINDOW>) -> Point {
+        return getCursorPosition(windowHandle:windowHandle)
     }
 
-    func screenSize() -> Size {
-        return getScreenSize(window:stdscr)
+    func screenSize(windowHandle:UnsafeMutablePointer<WINDOW>) -> Size {
+        return getScreenSize(windowHandle:windowHandle)
     }
     
     func setCursorStyle(_ cursorStyle:CursorStyle) {
@@ -102,30 +102,33 @@ internal class Curses {
         let key = Key(code:code)
         return key
     }
-    
-    func refresh() {
-        CNCURSES.refresh()
-    }
 
-    func clear() {
-        CNCURSES.clear()
-    }
-
-    func clearToEndOfLine() {
-        CNCURSES.clrtoeol()
+    func newWindow(position:Point, size:Size) -> UnsafeMutablePointer<WINDOW> {
+        return CNCURSES.newwin(Int32(size.height), Int32(size.width), Int32(position.y), Int32(position.x))
     }
     
-    func move(to:Point) {
-        CNCURSES.move(Int32(to.y), Int32(to.x))
+    func refresh(windowHandle:UnsafeMutablePointer<WINDOW>) {
+        CNCURSES.wrefresh(windowHandle)
     }
 
-    func write(_ string:String) {
-        CNCURSES.addstr(string)
+    func clear(windowHandle:UnsafeMutablePointer<WINDOW>) {
+        CNCURSES.wclear(windowHandle)
     }
 
-    func write(at:Point, string:String) {
-        move(to:at)
-        write(string)
+    func clearToEndOfLine(windowHandle:UnsafeMutablePointer<WINDOW>) {
+        CNCURSES.wclrtoeol(windowHandle)
+    }
+
+    func clearToBottomOfWindow(windowHandle:UnsafeMutablePointer<WINDOW>) {
+        CNCURSES.wclrtobot(windowHandle)
+    }
+    
+    func move(windowHandle:UnsafeMutablePointer<WINDOW>, to:Point) {
+        CNCURSES.wmove(windowHandle, Int32(to.y), Int32(to.x))
+    }
+
+    func write(windowHandle:UnsafeMutablePointer<WINDOW>, string:String) {
+        CNCURSES.waddstr(windowHandle, string)
     }
 
     var maxColorCount : Int {
@@ -184,15 +187,15 @@ internal class Curses {
 
     // ============================== Helper Functions ==============================
     // NB:  This appears to only update after an endwin/refresh/initscr
-    private func getScreenSize(window:UnsafeMutablePointer<WINDOW>) -> Size {
-        let width  : Int32 = getmaxx(window)
-        let height : Int32 = getmaxy(window)
+    private func getScreenSize(windowHandle:UnsafeMutablePointer<WINDOW>) -> Size {
+        let width  : Int32 = getmaxx(windowHandle)
+        let height : Int32 = getmaxy(windowHandle)
         return Size(width:Int(width), height:Int(height))
     }
 
-    private func getCursorPosition(window:UnsafeMutablePointer<WINDOW>) -> Point {
-        let x : Int32 = getcurx(window)
-        let y : Int32 = getcury(window)
+    private func getCursorPosition(windowHandle:UnsafeMutablePointer<WINDOW>) -> Point {
+        let x : Int32 = getcurx(windowHandle)
+        let y : Int32 = getcury(windowHandle)
         return Point(x:Int(x), y:Int(y))
     }
 
