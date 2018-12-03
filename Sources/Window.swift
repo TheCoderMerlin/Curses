@@ -13,9 +13,7 @@ public class Window {
     
     // Creates the default window covering the entire screen
     internal init() {
-        print("Assigning stdscr in Window.init")
         windowHandle = stdscr
-        print("Completed assignment")
         name = "*stdscr*"
         _cursor = Cursor(window:self)
     }

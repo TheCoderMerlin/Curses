@@ -97,8 +97,8 @@ internal class Curses {
         }
     }
 
-    func getKey() -> Key {
-        let code =  CNCURSES.getch()
+    func getKey(windowHandle:UnsafeMutablePointer<WINDOW>) -> Key {
+        let code =  CNCURSES.wgetch(windowHandle)
         let key = Key(code:code)
         return key
     }

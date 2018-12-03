@@ -8,8 +8,8 @@ public class Keyboard {
     }
 
     // ============================== API ==============================
-    public func getKey() -> Key {
-        return curses.getKey()
+    public func getKey(window:Window) -> Key {
+        return curses.getKey(windowHandle:window.windowHandle)
     }
 
     
