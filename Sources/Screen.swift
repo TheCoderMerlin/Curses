@@ -12,7 +12,7 @@ public class Screen {
     }
 
     // ============================== API ==============================
-    var window : Window {
+    public var window : Window {
         return standardWindow
     }
     
