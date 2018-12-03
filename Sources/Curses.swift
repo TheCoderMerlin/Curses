@@ -56,7 +56,6 @@ internal class Curses {
         // Initialize curses
         CNCURSES.initscr()
         CNCURSES.noecho()
-        CNCURSES.keypad(stdscr, true) // Processes special keys into special codes rather than escape sequences
 
         startUpCount += 1
     }
@@ -86,6 +85,10 @@ internal class Curses {
     
     func setCursorStyle(_ cursorStyle:CursorStyle) {
         CNCURSES.curs_set(cursorStyle.rawValue)
+    }
+
+    func setKeyPadMode(windowHandle:UnsafeMutablePointer<WINDOW>) {
+        CNCURSES.keypad(windowHandle, true) // Processes special keys into special codes rather than escape sequences
     }
 
     func setKeyboardBufferingMode(_ keyboardBufferingMode:KeyboardBufferingMode) {

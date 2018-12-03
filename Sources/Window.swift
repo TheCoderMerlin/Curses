@@ -16,12 +16,14 @@ public class Window {
         windowHandle = stdscr
         name = "*stdscr*"
         _cursor = Cursor(window:self)
+        curses.setKeyPadMode(windowHandle:windowHandle)
     }
 
     internal init(name:String, position:Point, size:Size) {
         self.windowHandle = curses.newWindow(position:position, size:size)
         self.name = name
         self._cursor = Cursor(window:self)
+        curses.setKeyPadMode(windowHandle:windowHandle)
     }
 
     public func refresh() {
