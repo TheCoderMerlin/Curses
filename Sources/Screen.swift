@@ -4,7 +4,7 @@ public class Screen {
     private let curses = Curses.shared
     
     public static let shared = Screen()
-    private let standardWindow : Window? = nil
+    private var standardWindow : Window? = nil
 
     // Explictly disable clients from creating objects of this class
     private init() {
@@ -23,6 +23,7 @@ public class Screen {
 
     public func shutDown() {
         curses.shutDown()
+        standardWindow = nil
     }
 
     public func wait() {
