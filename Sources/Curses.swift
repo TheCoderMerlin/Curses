@@ -189,9 +189,38 @@ internal class Curses {
         return Int(COLOR_PAIR(Int32(pairIndex)))
     }
 
+    static let attributeNormal : Int = {
+        return 0
+    }()
+
+    static let attributeStandout : Int = {
+        return Int(ncursesBits(mask:1, shift:8))
+    }()
+
+    static let attributeUnderline : Int = {
+        return Int(ncursesBits(mask:1, shift:9))
+    }()
+
+    static let attributeReverse : Int = {
+        return Int(ncursesBits(mask:1, shift:10))
+    }()
+
+    static let attributeBlink : Int = {
+        return Int(ncursesBits(mask:1, shift:11))
+    }()
+
+    static let attributeDim : Int = {
+        return Int(ncursesBits(mask:1, shift:12))
+    }()
+
     static let attributeBold : Int = {
         return Int(ncursesBits(mask:1, shift:13))
     }()
+
+    static let attributeInvisible : Int = {
+        return Int(ncursesBits(mask:1, shift:15))
+    }()
+
 
 
     // ============================== Helper Functions ==============================
