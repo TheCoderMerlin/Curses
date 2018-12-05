@@ -64,7 +64,7 @@ public class Window {
         curses.attributeOff(windowHandle:windowHandle, attributeValue:attributeValue)
     }
 
-    public func setAs(_ attribute:Attribute) {
+    public func setTo(_ attribute:Attribute) {
         let attributeValue = attribute.value
         curses.attributeSet(windowHandle:windowHandle, attributeValue:attributeValue)
     }

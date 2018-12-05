@@ -34,14 +34,6 @@ internal class Curses {
     
 
     // ============================== Internal API ==============================
-    /*
-    func reset() {
-        CNCURSES.endwin()
-        refresh()
-        CNCURSES.initscr()
-        clear()
-    }
-    */
 
     func startUp(handler:CursesHandlerProtocol? = nil) {
         precondition(startUpCount == 0, "Curses is already running.")
@@ -197,6 +189,10 @@ internal class Curses {
         return Int(COLOR_PAIR(Int32(pairIndex)))
     }
 
+    static let attributeBold : Int = {
+        return Int(ncursesBits(mask:1, shift:13))
+    }()
+
 
     // ============================== Helper Functions ==============================
     // NB:  This appears to only update after an endwin/refresh/initscr
@@ -220,6 +216,40 @@ internal class Curses {
         pair_content(index, &foregroundIndex, &backgroundIndex)
     }
 
+
+    /* These attributes are not imported into swift and are duplicated here 
+     #define NCURSES_ATTR_SHIFT       8
+     #define NCURSES_BITS(mask,shift) (NCURSES_CAST(chtype,(mask)) << ((shift) + NCURSES_ATTR_SHIFT))
+
+     #define A_NORMAL	(1UL - 1UL)
+     #define A_ATTRIBUTES	NCURSES_BITS(~(1UL - 1UL),0)
+     #define A_CHARTEXT	(NCURSES_BITS(1UL,0) - 1UL)
+     #define A_COLOR		NCURSES_BITS(((1UL) << 8) - 1UL,0)
+     #define A_STANDOUT	NCURSES_BITS(1UL,8)
+     #define A_UNDERLINE	NCURSES_BITS(1UL,9)
+     #define A_REVERSE	NCURSES_BITS(1UL,10)
+     #define A_BLINK		NCURSES_BITS(1UL,11)
+     #define A_DIM		NCURSES_BITS(1UL,12)
+     #define A_BOLD		NCURSES_BITS(1UL,13)
+     #define A_ALTCHARSET	NCURSES_BITS(1UL,14)
+     #define A_INVIS		NCURSES_BITS(1UL,15)
+     #define A_PROTECT	NCURSES_BITS(1UL,16)
+     #define A_HORIZONTAL	NCURSES_BITS(1UL,17)
+     #define A_LEFT		NCURSES_BITS(1UL,18)
+     #define A_LOW		NCURSES_BITS(1UL,19)
+     #define A_RIGHT		NCURSES_BITS(1UL,20)
+     #define A_TOP		NCURSES_BITS(1UL,21)
+     #define A_VERTICAL	NCURSES_BITS(1UL,22)
+
+     #if 1
+     #define A_ITALIC	NCURSES_BITS(1UL,23)	/* ncurses extension */
+     #endif
+     */
+
+    private static func ncursesBits(mask:UInt32, shift:UInt32) -> UInt32 {
+        return mask << (shift + 8)
+    }
+    
 
     // ============================== Signal Handler Definitions ==============================
     private enum Signal : Int32 {
