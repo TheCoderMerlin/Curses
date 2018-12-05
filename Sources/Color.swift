@@ -19,7 +19,7 @@ public class Color {
     }
 
     // Standard colors
-    public enum StandardColor : CaseIterable {
+    public enum StandardColor : String, CaseIterable {
         case black
         case red
         case green
