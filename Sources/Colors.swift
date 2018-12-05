@@ -8,8 +8,8 @@ public class Colors {
     }
 
     private var started : Bool = false
-    private var colorCount = 8 // There are eight default colors at start
-    private var pairCount = 1  // There is one default pair at start
+    public private(set) var colorCount = 8 // There are eight default colors at start
+    public private(set) var pairCount = 1  // There is one default pair at start
 
     // ============================== API ==============================
     public func startUp() {
