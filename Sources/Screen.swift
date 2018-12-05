@@ -27,7 +27,7 @@ public class Screen {
     }
 
     public func newWindow(name:String, position:Point, size:Size) -> Window {
-        return Window(name:name, position:position, size:size)
+        return Window(position:position, size:size)
     }
 
     public func wait() {

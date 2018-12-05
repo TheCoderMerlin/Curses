@@ -4,7 +4,6 @@ public class Window {
     private let curses = Curses.shared
     
     let windowHandle : UnsafeMutablePointer<WINDOW>
-    public let name : String
     private var _cursor : Cursor! = nil
 
     public var cursor : Cursor {
@@ -14,14 +13,12 @@ public class Window {
     // Creates the default window covering the entire screen
     internal init() {
         windowHandle = stdscr
-        name = "*stdscr*"
         _cursor = Cursor(window:self)
         curses.setKeyPadMode(windowHandle:windowHandle)
     }
 
-    internal init(name:String, position:Point, size:Size) {
+    internal init(position:Point, size:Size) {
         self.windowHandle = curses.newWindow(position:position, size:size)
-        self.name = name
         self._cursor = Cursor(window:self)
         curses.setKeyPadMode(windowHandle:windowHandle)
     }

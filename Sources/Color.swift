@@ -19,6 +19,30 @@ public class Color {
     }
 
     // Standard colors
+    public enum StandardColor : CaseIterable {
+        case black
+        case red
+        case green
+        case yellow
+        case blue
+        case magenta
+        case cyan
+        case white
+    }
+
+    static public func standard(_ standardName:StandardColor) -> Color {
+        switch (standardName) {
+        case .black:    return Color.black
+        case .red:      return Color.red
+        case .green:    return Color.green
+        case .yellow:   return Color.yellow
+        case .blue:     return Color.blue
+        case .magenta:  return Color.magenta
+        case .cyan:     return Color.cyan
+        case .white:    return Color.white
+        }
+    }
+
     static public let black : Color = {
         return Color(index:0)
     }()
