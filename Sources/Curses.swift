@@ -134,6 +134,18 @@ internal class Curses {
         CNCURSES.waddstr(windowHandle, string)
     }
 
+    func attributeOn(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
+        CNCURSES.wattron(windowHandle, Int32(attributeValue))
+    }
+
+    func attributeOff(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
+        CNCURSES.wattroff(windowHandle, Int32(attributeValue))
+    }
+
+    func attributeSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
+        CNCURSES.wattrset(windowHandle, Int32(attributeValue))
+    }
+    
     var maxColorCount : Int {
         return Int(COLORS)
     }
@@ -180,13 +192,11 @@ internal class Curses {
         init_pair(Int16(index), Int16(foregroundIndex), Int16(backgroundIndex))
     }
 
-    func colorPairAttributeOn(pairIndex:Int) {
-        attron(COLOR_PAIR(Int32(pairIndex)))
+
+    func colorAttributeValue(pairIndex:Int) -> Int {
+        return Int(COLOR_PAIR(Int32(pairIndex)))
     }
 
-    func colorPairAttributeOff(pairIndex:Int) {
-        attroff(COLOR_PAIR(Int32(pairIndex)))
-    }
 
     // ============================== Helper Functions ==============================
     // NB:  This appears to only update after an endwin/refresh/initscr

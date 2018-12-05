@@ -1,33 +1,29 @@
-public class ColorPair {
-    private let colors = Colors.shared
-
-    public let name : String
+public class ColorPair : Attribute {
+    internal let index : Int
     public let foreground : Color
     public let background : Color
 
     // Creates a new, named pair
-    public init(name:String, foreground:Color, background:Color) {
-        self.name = name
+    internal init(index:Int, foreground:Color, background:Color) {
+        self.index = index
         self.foreground = foreground
         self.background = background
-
-        colors.addPair(name:name, foregroundName:foreground.name, backgroundName:background.name)
+        
+        super.init(value:Curses.shared.colorAttributeValue(pairIndex:index))
     }
 
-    public init(name:String) {
-        let (foregroundName, backgroundName) = colors.pair(name:name)
-        let foregroundColor = Color(name:foregroundName)
-        let backgroundColor = Color(name:backgroundName)
-        self.name = name
-        self.foreground = foregroundColor
-        self.background = backgroundColor
+    internal init(index:Int) {
+        self.index = index
+
+        let (foregroundIndex, backgroundIndex) = Curses.shared.getColorPair(index:index)
+        self.foreground = Color(index:foregroundIndex)
+        self.background = Color(index:backgroundIndex)
+        
+        super.init(value:Curses.shared.colorAttributeValue(pairIndex:index))
     }
 
-    public func on() {
-        colors.turnPairOn(pairName:name)
-    }
+    static public let defaultPair : ColorPair = {
+        return ColorPair(index:0)
+    }()
 
-    public func off() {
-        colors.turnPairOff(pairName:name)
-    }
 }

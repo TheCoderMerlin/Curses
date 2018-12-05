@@ -1,32 +1,55 @@
 public class Color {
-    private let colors = Colors.shared
+    internal let index : Int
+    public internal(set) var red : Int     // Value in thousandths
+    public internal(set) var green : Int   // Value in thousandths
+    public internal(set) var blue : Int    // Value in thousandths
 
-    public let name : String
-    public let red : Int     // Value in thousandths
-    public let green : Int   // Value in thousandths
-    public let blue : Int    // Value in thousandths
-
-    // Creates a new, named color
-    public init(name:String, red:Int, green:Int, blue:Int) {
-        colors.startIfNecessary()
-        
-        self.name = name
+    // Creates a new color
+    internal init(index:Int, red:Int, green:Int, blue:Int) {
+        self.index = index
         self.red = red
         self.green = green
         self.blue = blue
-
-        colors.add(name:name, red:red, green:green, blue:blue)
     }
 
-    // Retrieves a previously defined, named color
-    public init(name:String) {
-        colors.startIfNecessary()
-        
-        let (red, green, blue) = colors.color(name:name)
-        self.name = name
-        self.red = red
-        self.green = green
-        self.blue = blue
-
+    // Retrieves an existing color by index
+    internal init(index:Int) {
+        self.index = index
+        (self.red, self.green, self.blue) = Curses.shared.getColor(index:index)
     }
+
+    // Standard colors
+    static public let black : Color = {
+        return Color(index:0)
+    }()
+
+    static public let red : Color = {
+        return Color(index:1)
+    }()
+
+    static public let green : Color = {
+        return Color(index:2)
+    }()
+
+    static public let yellow : Color = {
+        return Color(index:3)
+    }()
+
+    static public let blue : Color = {
+        return Color(index:4)
+    }()
+
+    static public let magenta : Color = {
+        return Color(index:5)
+    }()
+
+    static public let cyan : Color = {
+        return Color(index:6)
+    }()
+
+    static public let white : Color = {
+        return Color(index:7)
+    }()
+
+
 }

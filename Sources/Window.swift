@@ -54,6 +54,21 @@ public class Window {
         write(String(character))
     }
 
+    public func turnOn(_ attribute:Attribute) {
+        let attributeValue = attribute.value
+        curses.attributeOn(windowHandle:windowHandle, attributeValue:attributeValue)
+    }
+
+    public func turnOff(_ attribute:Attribute) {
+        let attributeValue = attribute.value
+        curses.attributeOff(windowHandle:windowHandle, attributeValue:attributeValue)
+    }
+
+    public func setAs(_ attribute:Attribute) {
+        let attributeValue = attribute.value
+        curses.attributeSet(windowHandle:windowHandle, attributeValue:attributeValue)
+    }
+
     public func draw(_ rect:Rect) {
         precondition(rect.size.width >= 2, "Unable to draw a Rect that is less than width of 2.")
         precondition(rect.size.height >= 2, "Unable to draw a Rect that is less than height of 2.")
