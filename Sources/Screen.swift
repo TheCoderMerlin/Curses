@@ -26,7 +26,7 @@ public class Screen {
         standardWindow = nil
     }
 
-    public func newWindow(name:String, position:Point, size:Size) -> Window {
+    public func newWindow(position:Point, size:Size) -> Window {
         return Window(position:position, size:size)
     }
 
