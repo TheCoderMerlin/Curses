@@ -24,7 +24,7 @@ import PackageDescription
 let package = Package(
   name:  "myApplication",
   dependencies: [
-    .package(url: "https://github.com/TangoGolfDigital/Curses.git", from: "0.0.49"),
+    .package(url: "https://github.com/TangoGolfDigital/Curses.git", from: "0.0.51"),
   ],
   targets: [
     .target(
