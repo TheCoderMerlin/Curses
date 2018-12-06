@@ -1,5 +1,5 @@
 # Curses
-Curses provides a Swift object wrapper for the curses programming library for Linux (tested on Ubuntu 16.04)
+Curses provides a Swift object wrapper for the curses programming library for Linux (tested on Ubuntu 16.04, 18.04)
 
 ## What is Curses?
 Curses enables better-looking, text-based (console) applications in a terminal-agnostic manner.
@@ -10,6 +10,8 @@ This wrapper provides access to some of this functionality via Swift objects.  C
 * Color manipulation
 * Keyboard access
 * Box drawing
+
+![Sample Screen](/images/sampleScreen.png?raw=true "Sample Screen")
 
 ## Usage
 
