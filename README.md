@@ -81,8 +81,15 @@ Provide shortcut access to the single instance of the screen's window
 It's OK to use this instance OR to create separate windows located on the screen
 but it's generally not a good practice to mix and match.
 
+To use only the main window:
 ```swift
 let mainWindow = screen.window
+```
+
+To use only separate windows:
+```swift
+let firstWindow = screen.newWindow(position:Point(x:10, y:20), size:Size(width:100, height:20))
+let secondWindow = screen.newWindow(position:Point(x:120, y:10), size:Size(width:100, height:20))
 ```
 
 ### Writing to the Console
