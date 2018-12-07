@@ -91,10 +91,10 @@ public class Window {
         bottomLine += String(bottomRightCorner)
 
         // We'll restore the cursor to its starting position when we're done
-        cursor.pushPosition()
-        let left = cursor.position.x
+        cursor.pushPosition(newPosition:rect.topLeft)
+        let left = rect.topLeft.x
         let right = left + rect.size.width - 1
-        let top = cursor.position.y
+        let top = rect.topLeft.y
         let bottom = top + rect.size.height - 1
 
         // Write the top line
