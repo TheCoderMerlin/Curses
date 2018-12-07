@@ -23,6 +23,14 @@ public class BoxCharacter {
         case all
     } // enum
 
+    public enum SingleSpoke {
+        case top
+        case left
+        case bottom
+        case right
+    }
+    public typealias SingleSpokes = Set<SingleSpoke>
+
     public static let thickNone             : Character = " "
     public static let thickRight            : Character = "\u{257A}"  // ╺
     public static let thickBottom           : Character = "\u{257B}"  // ╻
@@ -80,5 +88,13 @@ public class BoxCharacter {
             fatalError("Specified index (\(index)) was invalid because Spokes could not be found")
         }
         self.spokes = spokes
+    }
+
+    public convenience init(withSpokes singleSpokes:SingleSpokes) {
+        let top    = singleSpokes.contains(.top)
+        let left   = singleSpokes.contains(.left)
+        let bottom = singleSpokes.contains(.bottom)
+        let right  = singleSpokes.contains(.right)
+        self.init(top:top, left:left, bottom:bottom, right:right)
     }
 }
