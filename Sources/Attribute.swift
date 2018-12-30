@@ -16,8 +16,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
   
-import CNCURSES
+/** 
+ The `Attribute` class provides the ability to alter the text attribute
+ of the text in a `Window`.  
 
+ Instances of this class may not be initialized by client code.
+ Rather, there are several preset contants available.
+ The class is also used internally to represent colors.
+
+ Typical usage:
+ 
+ ```
+ window.turnOn(Attribute.underline)
+ window.write("This text is underlined.")
+ window.turnOff(Attribute.underline)
+ ```
+*/
 public class Attribute {
     internal let value : Int
 
@@ -25,13 +39,27 @@ public class Attribute {
         self.value = value
     }
 
-    // Standard attributes
+    /// Normal terminal display (no highlighting)
     static public let normal     = Attribute(value:Curses.attributeNormal)
+
+    /// Best highlighting mode of the terminal
     static public let standout   = Attribute(value:Curses.attributeStandout)
+
+    /// Text is underlined
     static public let underline  = Attribute(value:Curses.attributeUnderline)
+
+    /// Text is reversed
     static public let reverse    = Attribute(value:Curses.attributeReverse)
+
+    /// Text blinks
     static public let blink      = Attribute(value:Curses.attributeBlink)
+
+    /// Text is dimmed
     static public let dim        = Attribute(value:Curses.attributeDim)
+
+    /// Text is bold
     static public let bold       = Attribute(value:Curses.attributeBold)
+
+    /// Text is invisible
     static public let invisible  = Attribute(value:Curses.attributeInvisible)
 }
