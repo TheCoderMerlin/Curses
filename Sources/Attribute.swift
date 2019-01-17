@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  of the text in a `Window`.  
 
  Instances of this class may not be initialized by client code.
- Rather, there are several preset contants available.
+ Rather, there are several preset constants available.
  The class is also used internally to represent colors.
 
  Typical usage:
@@ -40,27 +40,27 @@ public class Attribute {
         self.value = value
     }
 
-    /// Normal terminal display (no highlighting)
+    // Normal terminal display (no highlighting)
     static public let normal     = Attribute(value:Curses.attributeNormal)
 
-    /// Best highlighting mode of the terminal
+    // Terminal display with highlighting
     static public let standout   = Attribute(value:Curses.attributeStandout)
 
-    /// Text is underlined
+    // Text is underlined
     static public let underline  = Attribute(value:Curses.attributeUnderline)
 
-    /// Text is reversed
+    // Text is reversed
     static public let reverse    = Attribute(value:Curses.attributeReverse)
 
-    /// Text blinks
+    // Text blinks
     static public let blink      = Attribute(value:Curses.attributeBlink)
 
-    /// Text is dimmed
+    // Text is dimmed
     static public let dim        = Attribute(value:Curses.attributeDim)
 
-    /// Text is bold
+    // Text is bold
     static public let bold       = Attribute(value:Curses.attributeBold)
 
-    /// Text is invisible
+    // Text is invisible
     static public let invisible  = Attribute(value:Curses.attributeInvisible)
 }
