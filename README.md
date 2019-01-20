@@ -161,7 +161,10 @@ mainWindow.turnOff(Attribute.bold)
 ### Using Color
 Before using color, Colors needs to be started up.
 It's important to ensure that the terminal supports colors before proceeding.
+Colors may only be started up AFTER Curses is started up.
 ```swift
+screen.startUp(handler:handler)
+
 let colors = Colors.shared
 precondition(colors.areSupported, "This terminal doesn't support colors")
 colors.startUp()
