@@ -103,6 +103,8 @@ mainWindow.write("Hello, world!")
 ```swift
 mainWindow.refresh()
 ```
+### Enabling Scrolling
+mainWindow.setScroll(enabled:true) 
 
 ### Moving the Cursor
 ```swift
