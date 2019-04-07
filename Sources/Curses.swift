@@ -110,6 +110,10 @@ internal class Curses {
         }
     }
 
+    func setScroll(windowHandle:UnsafeMutablePointer<WINDOW>, enabled:Bool) {
+        CNCURSES.scrollok(windowHandle, enabled)
+    }
+
     func getKey(windowHandle:UnsafeMutablePointer<WINDOW>) -> Key {
         let code =  CNCURSES.wgetch(windowHandle)
         let key = Key(code:code)
