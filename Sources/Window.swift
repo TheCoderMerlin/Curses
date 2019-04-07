@@ -41,6 +41,10 @@ public class Window {
         curses.setKeyPadMode(windowHandle:windowHandle)
     }
 
+    public func setScroll(enabled:Bool) {
+        curses.setScroll(windowHandle:windowHandle, enabled:enabled)
+    }
+
     public func refresh() {
         curses.refresh(windowHandle:windowHandle)
     }
