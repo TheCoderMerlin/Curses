@@ -69,7 +69,7 @@ class Handler : CursesHandlerProtocol {
 }
 
 // Start up
-screen.startUp()
+screen.startUp(handler:Handler())
 
 // Do some fun stuff
 
