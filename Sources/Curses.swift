@@ -34,6 +34,7 @@ internal class Curses {
     enum KeyboardBufferingMode {
         case bufferingIsOn
         case bufferingIsOff
+        case halfDelay(tenthsOfSecond:Int)
     }
         
 
@@ -107,6 +108,8 @@ internal class Curses {
             CNCURSES.nocbreak()
         case .bufferingIsOff:
             CNCURSES.cbreak()
+        case .halfDelay(let tenthsOfSecond):
+            CNCURSES.halfdelay(Int32(tenthsOfSecond))
         }
     }
 

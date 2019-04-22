@@ -30,5 +30,16 @@ public class Keyboard {
         return curses.getKey(windowHandle:window.windowHandle)
     }
 
+    public func setBufferingOn() {
+        curses.setKeyboardBufferingMode(.bufferingIsOn)
+    }
+    
+    public func setBufferingOff() {
+        curses.setKeyboardBufferingMode(.bufferingIsOff)
+    }
+    
+    public func setBufferingDelayed(tenthsOfSecond:Int) {
+        curses.setKeyboardBufferingMode(.halfDelay(tenthsOfSecond:tenthsOfSecond))
+    }
     
 }
