@@ -69,7 +69,7 @@ class Handler : CursesHandlerProtocol {
 }
 
 // Start up
-screen.startUp()
+screen.startUp(handler:Handler())
 
 // Do some fun stuff
 
@@ -103,6 +103,8 @@ mainWindow.write("Hello, world!")
 ```swift
 mainWindow.refresh()
 ```
+### Enabling Scrolling
+mainWindow.setScroll(enabled:true) 
 
 ### Moving the Cursor
 ```swift
