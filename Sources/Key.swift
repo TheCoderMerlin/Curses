@@ -41,6 +41,8 @@ public struct Key {
 
     private static let enter            = KEY_ENTER
 
+    private static let keyError         = ERR
+
     public enum KeyType {
         // key type
         case isUnknown
@@ -69,6 +71,8 @@ public struct Key {
         case function12
 
         case enter
+
+        case keyError
     }
 
     let specialKeyMap = [
@@ -92,7 +96,9 @@ public struct Key {
       F11          : KeyType.function11,
       F12          : KeyType.function12,
 
-      enter        : KeyType.enter
+      enter        : KeyType.enter,
+
+      keyError     : KeyType.keyError
     ]
 
     // Code and key type are always set
