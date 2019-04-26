@@ -137,8 +137,100 @@ public class Window {
 
         // Restore the cursor
         cursor.popPosition()
+    }
+
+    // Returns a string as entered by the user, providing for simple editing support using left and right arrows and the backspace
+    // key.  The input is collected from a field beginning at the specified position of a maximum length as specified.
+    // If a fieldColorPair is specified Colors MUST be active.  The field will then be displayed in the specified colorPair.
+    func getStringFromTextField(at fieldPosition:Point, maxCharacters:Int, fieldColorPair:ColorPair?) -> String {
+        // Access keyboard
+        let keyboard = Keyboard.shared
         
+        // Save cursor position to be restored later and move cursor to field
+        cursor.pushPosition()
+        cursor.position = fieldPosition
         
+        var string = ""
+        var insertionPoint = string.startIndex
+        var isEnter = false
+        repeat {
+            let key = keyboard.getKey(window:self)
+            switch key.keyType {
+            case .isCharacter:
+                // Update the string
+                string.insert(key.character!, at:insertionPoint)
+
+                // Move the insertion point forward
+                insertionPoint = string.index(after:insertionPoint)
+
+                // Write the chracter and move the cursor forward
+                write(key.character!)
+
+                // Print the remaining characters
+                if insertionPoint < string.endIndex {
+                    let remainingCharacters = String(string[insertionPoint...])
+
+                    // Write the remaining characters
+                    write(remainingCharacters)
+
+                    // Move the cursor back
+                    cursor.position = cursor.position.offsetBy(xOffset:-remainingCharacters.count, yOffset:0)
+                }
+            case .backspace:
+                if insertionPoint > string.startIndex {
+                    // Move the insertion point backward
+                    insertionPoint = string.index(before:insertionPoint)
+
+                    // Update the string
+                    string.remove(at:insertionPoint)
+
+                    // Move the cursor backward
+                    cursor.position = cursor.position.offsetBy(xOffset:-1, yOffset:0)
+
+                    // Write the string from this point forward in order
+                    // to erase what was there previously
+                    // The final character printed will be a space to erase
+                    // the last character
+                    let remainingCharacters = String(string[insertionPoint...])
+                    write(remainingCharacters)
+                    write(" ")
+
+                    // Move the cursor back again
+                    cursor.position = cursor.position.offsetBy(xOffset:-remainingCharacters.count-1, yOffset:0)
+                }
+            case .arrowLeft:
+                if insertionPoint > string.startIndex {
+                    // Move the insertion point backward
+                    insertionPoint = string.index(before:insertionPoint)
+
+                    // Move the cursor backward
+                    cursor.position = cursor.position.offsetBy(xOffset:-1, yOffset:0)
+                }
+            case .arrowRight:
+                if insertionPoint < string.endIndex {
+                    // Move the insertion point forward
+                    insertionPoint = string.index(after:insertionPoint)
+
+                    // Move the cursor forward
+                    cursor.position = cursor.position.offsetBy(xOffset:1, yOffset:0)
+                }
+            case .function1:
+                cursor.pushPosition()
+                cursor.position = Point(x:0, y:0)
+                write(string)
+                clearToEndOfLine()
+                cursor.popPosition()
+            case .isControl:
+                isEnter = key.control! == 10
+            default:
+                write("\(key.keyType)")
+            }
+        } while !isEnter
+
+
+        // Restore cursor position and return string
+        cursor.popPosition()
+        return string
     }
 
 }
