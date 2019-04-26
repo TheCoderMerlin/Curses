@@ -281,3 +281,12 @@ while true {
     mainWindow.refresh()
 }
 ```
+
+### Getting text from a field
+```swift
+    let cyan = Color.standard(.cyan)                                                                                                                                                                    
+    let black = Color.standard(.black)                                                                                                                                                                  
+    let cyanOnBlack = colors.newPair(foreground:black, background:cyan)                                                                                                                                 
+    let string = mainWindow.getStringFromTextField(at:Point(x:10, y:10), maxCharacters:10, fieldColorPair:cyanOnBlack)                                                                                  
+
+```
