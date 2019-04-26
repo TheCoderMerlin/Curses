@@ -166,24 +166,27 @@ public class Window {
             let key = keyboard.getKey(window:self)
             switch key.keyType {
             case .isCharacter:
-                // Update the string
-                string.insert(key.character!, at:insertionPoint)
+                // Only allow insertion if we're below the maxCharacters permitted
+                if (string.count < maxCharacters) {
+                    // Update the string
+                    string.insert(key.character!, at:insertionPoint)
 
-                // Move the insertion point forward
-                insertionPoint = string.index(after:insertionPoint)
+                    // Move the insertion point forward
+                    insertionPoint = string.index(after:insertionPoint)
 
-                // Write the chracter and move the cursor forward
-                write(key.character!)
+                    // Write the chracter and move the cursor forward
+                    write(key.character!)
 
-                // Print the remaining characters
-                if insertionPoint < string.endIndex {
-                    let remainingCharacters = String(string[insertionPoint...])
+                    // Print the remaining characters
+                    if insertionPoint < string.endIndex {
+                        let remainingCharacters = String(string[insertionPoint...])
 
-                    // Write the remaining characters
-                    write(remainingCharacters)
+                        // Write the remaining characters
+                        write(remainingCharacters)
 
-                    // Move the cursor back
-                    cursor.position = cursor.position.offsetBy(xOffset:-remainingCharacters.count, yOffset:0)
+                        // Move the cursor back
+                        cursor.position = cursor.position.offsetBy(xOffset:-remainingCharacters.count, yOffset:0)
+                    }
                 }
             case .backspace:
                 if insertionPoint > string.startIndex {
