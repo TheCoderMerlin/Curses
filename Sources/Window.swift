@@ -142,6 +142,7 @@ public class Window {
     // Returns a string as entered by the user, providing for simple editing support using left and right arrows and the backspace
     // key.  The input is collected from a field beginning at the specified position of a maximum length as specified.
     // If a fieldColorPair is specified Colors MUST be active.  The field will then be displayed in the specified colorPair.
+    // The function will exit when either TAB or ENTER is pressed
     public func getStringFromTextField(at fieldPosition:Point, maxCharacters:Int, fieldColorPair:ColorPair?) -> String {
         // Access keyboard
         let keyboard = Keyboard.shared
@@ -152,7 +153,7 @@ public class Window {
         
         var string = ""
         var insertionPoint = string.startIndex
-        var isEnter = false
+        var shouldExit = false
         repeat {
             let key = keyboard.getKey(window:self)
             switch key.keyType {
@@ -214,18 +215,14 @@ public class Window {
                     // Move the cursor forward
                     cursor.position = cursor.position.offsetBy(xOffset:1, yOffset:0)
                 }
-            case .function1:
-                cursor.pushPosition()
-                cursor.position = Point(x:0, y:0)
-                write(string)
-                clearToEndOfLine()
-                cursor.popPosition()
             case .isControl:
-                isEnter = key.control! == 10
+                let isEnter = key.control! == 10
+                let isTab = key.control! == 9
+                shouldExit = isEnter || isTab
             default:
-                write("\(key.keyType)")
+                do {}
             }
-        } while !isEnter
+        } while !shouldExit
 
 
         // Restore cursor position and return string
