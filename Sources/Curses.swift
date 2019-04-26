@@ -166,7 +166,7 @@ internal class Curses {
     func backgroundSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int, character:Character) {
         let unicodeScalars = character.unicodeScalars
         let ascii = UInt(unicodeScalars[unicodeScalars.startIndex].value)
-        let attributeAndCharacter : UInt = UInt(attributeValue) + ascii
+        let attributeAndCharacter : UInt = UInt(attributeValue) | ascii
         CNCURSES.wbkgd(windowHandle, attributeAndCharacter)
     }
     
