@@ -167,7 +167,7 @@ internal class Curses {
         let unicodeScalars = character.unicodeScalars
         let ascii = UInt(unicodeScalars[unicodeScalars.startIndex].value)
         let attributeAndCharacter : UInt = UInt(attributeValue) | ascii
-        CNCURSES.wbkgd(windowHandle, attributeAndCharacter)
+        CNCURSES.wbkgdset(windowHandle, attributeAndCharacter)
     }
     
     var maxColorCount : Int {
