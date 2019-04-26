@@ -243,6 +243,18 @@ mainWindow.write("Orange")
 mainWindow.turnOff(orangeOnBlack)  
 ```
 
+### Changing the Background
+```swift
+let cyan = Color.standard(.cyan)
+let black = Color.standard(.black)
+let cyanOnBlack = colors.newPair(foreground:black, background:cyan)
+
+mainWindow.backgroundSet(attribute:cyanOnBlack)
+mainWindow.clear()
+mainWindow.write("Hello, World!")
+mainWindow.refresh()
+```
+
 ### Using the keyboard
 
 ```swift
@@ -284,9 +296,8 @@ while true {
 
 ### Getting text from a field
 ```swift
-    let cyan = Color.standard(.cyan)                                                                                                                                                                    
-    let black = Color.standard(.black)                                                                                                                                                                  
-    let cyanOnBlack = colors.newPair(foreground:black, background:cyan)                                                                                                                                 
-    let string = mainWindow.getStringFromTextField(at:Point(x:10, y:10), maxCharacters:10, fieldColorPair:cyanOnBlack)                                                                                  
-
+let cyan = Color.standard(.cyan)
+let black = Color.standard(.black)
+let cyanOnBlack = colors.newPair(foreground:black, background:cyan)
+let string = mainWindow.getStringFromTextField(at:Point(x:10, y:10), maxCharacters:10, fieldColorPair:cyanOnBlack)
 ```
