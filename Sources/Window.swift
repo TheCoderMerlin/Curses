@@ -142,7 +142,7 @@ public class Window {
     // Returns a string as entered by the user, providing for simple editing support using left and right arrows and the backspace
     // key.  The input is collected from a field beginning at the specified position of a maximum length as specified.
     // If a fieldColorPair is specified Colors MUST be active.  The field will then be displayed in the specified colorPair.
-    func getStringFromTextField(at fieldPosition:Point, maxCharacters:Int, fieldColorPair:ColorPair?) -> String {
+    public func getStringFromTextField(at fieldPosition:Point, maxCharacters:Int, fieldColorPair:ColorPair?) -> String {
         // Access keyboard
         let keyboard = Keyboard.shared
         
