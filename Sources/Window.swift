@@ -49,6 +49,11 @@ public class Window {
         curses.refresh(windowHandle:windowHandle)
     }
 
+    public func backgroundSet(attribute:Attribute, character:Character = " ") {
+        let attributeValue = attribute.value
+        curses.backgroundSet(windowHandle:windowHandle, attributeValue:attributeValue, character:character)
+    }
+
     public func clear() {
         curses.clear(windowHandle:windowHandle)
     }

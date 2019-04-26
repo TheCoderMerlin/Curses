@@ -162,6 +162,13 @@ internal class Curses {
     func attributeSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
         CNCURSES.wattrset(windowHandle, Int32(attributeValue))
     }
+
+    func backgroundSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int, character:Character) {
+        let unicodeScalars = character.unicodeScalars
+        let ascii = UInt(unicodeScalars[unicodeScalars.startIndex].value)
+        let attributeAndCharacter : UInt = UInt(attributeValue) + ascii
+        CNCURSES.wbkgd(windowHandle, attributeAndCharacter)
+    }
     
     var maxColorCount : Int {
         return Int(COLORS)
