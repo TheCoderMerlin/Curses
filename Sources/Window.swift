@@ -150,6 +150,14 @@ public class Window {
         // Save cursor position to be restored later and move cursor to field
         cursor.pushPosition()
         cursor.position = fieldPosition
+
+        // If a fieldColorPair is specified, we turn that color on
+        if let fieldColorPair = fieldColorPair {
+            turnOn(fieldColorPair)
+            let pad = String(repeating:" ", count:maxCharacters)
+            write(pad)
+            cursor.position = fieldPosition
+        }
         
         var string = ""
         var insertionPoint = string.startIndex
@@ -225,6 +233,11 @@ public class Window {
         } while !shouldExit
 
 
+        // If a fieldColorPair is specified, we turn that color off
+        if let fieldColorPair = fieldColorPair {
+            turnOff(fieldColorPair)
+        }
+        
         // Restore cursor position and return string
         cursor.popPosition()
         return string
