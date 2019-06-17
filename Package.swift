@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
   name:  "Curses",
   products: [
-    .library(name: "Curses", targets: ["Curses"]),
+    .library(name: "Curses",
+             type: .dynamic,
+             targets: ["Curses"]),
   ], 
   dependencies: [
     .package(url:  "https://github.com/TangoGolfDigital/CNCURSES.git", from: "1.0.0"),
