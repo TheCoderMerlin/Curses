@@ -126,6 +126,20 @@ internal class Curses {
     func newWindow(position:Point, size:Size) -> UnsafeMutablePointer<WINDOW> {
         return CNCURSES.newwin(Int32(size.height), Int32(size.width), Int32(position.y), Int32(position.x))
     }
+
+    func moveWindow(windowHandle:UnsafeMutablePointer<WINDOW>, to:Point) {
+        CNCURSES.mvwin(windowHandle, Int32(to.y), Int32(to.x))
+    }
+
+    func getWindowPosition(windowHandle:UnsafeMutablePointer<WINDOW>) -> Point {
+        let xPosition = getbegx(windowHandle)
+        let yPosition = getbegy(windowHandle)
+        return Point(x:Int(xPosition), y:Int(yPosition))
+    }
+
+    func resizeWindow(windowHandle:UnsafeMutablePointer<WINDOW>, size:Size) {
+        CNCURSES.wresize(windowHandle, Int32(size.height), Int32(size.width))
+    }
     
     func refresh(windowHandle:UnsafeMutablePointer<WINDOW>) {
         CNCURSES.wrefresh(windowHandle)

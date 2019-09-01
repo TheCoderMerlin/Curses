@@ -67,7 +67,23 @@ public class Window {
     }
 
     public var size : Size {
-        return curses.screenSize(windowHandle:windowHandle)
+        get {
+            return curses.screenSize(windowHandle:windowHandle)
+        }
+
+        set (newSize) {
+            curses.resizeWindow(windowHandle:windowHandle, size:newSize)
+        }
+    }
+
+    public var position : Point {
+        get {
+            return curses.getWindowPosition(windowHandle:windowHandle)
+        }
+
+        set (newPosition) {
+            curses.moveWindow(windowHandle:windowHandle, to:newPosition)
+        }
     }
 
     public func write(_ string:String) {
