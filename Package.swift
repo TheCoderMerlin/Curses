@@ -11,7 +11,7 @@ let package = Package(
              targets: ["Curses"]),
   ], 
   dependencies: [
-    .package(url:  "https://github.com/TangoGolfDigital/CNCURSES.git", from: "1.0.0"),
+    .package(url:  "https://github.com/TheCoderMerlin/CNCURSES.git", from: "1.0.0"),
   ],
   targets: [
     .target(
