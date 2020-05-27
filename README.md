@@ -26,7 +26,7 @@ import PackageDescription
 let package = Package(
   name:  "myApplication",
   dependencies: [
-    .package(url: "https://github.com/TheCoderMerlin/Curses", from: "1.0.0"),
+    .package(url: "https://github.com/TheCoderMerlin/Curses.git", from: "1.0.0"),
   ],
   targets: [
     .target(
