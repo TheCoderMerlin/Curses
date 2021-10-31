@@ -1,6 +1,6 @@
 /*
 Curses - ncurses object library for Swift
-Copyright (C) 2018 Tango Golf Digital, LLC
+Copyright (C) 2018 CoderMerlin.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
