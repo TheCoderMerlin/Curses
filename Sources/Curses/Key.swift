@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import CNCURSES
+import ncurses
 
 public struct Key {
     private static let down             = KEY_DOWN	     /* down-arrow key */

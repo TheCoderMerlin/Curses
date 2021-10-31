@@ -16,7 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import CNCURSES
+import Foundation
+import ncurses
 
 
 // References:
@@ -65,8 +66,8 @@ internal class Curses {
         setlocale(LC_ALL, "")
 
         // Initialize curses
-        CNCURSES.initscr()
-        CNCURSES.noecho()
+        ncurses.initscr()
+        ncurses.noecho()
 
         startUpCount += 1
     }
@@ -75,7 +76,7 @@ internal class Curses {
         precondition(startUpCount == 1, "No instance of Curses is currently running.")
 
         Curses.handler = nil
-        CNCURSES.endwin()
+        ncurses.endwin()
 
         startUpCount -= 1
     }
@@ -95,40 +96,40 @@ internal class Curses {
     }
     
     func setCursorStyle(_ cursorStyle:CursorStyle) {
-        CNCURSES.curs_set(cursorStyle.rawValue)
+        ncurses.curs_set(cursorStyle.rawValue)
     }
 
     func setKeyPadMode(windowHandle:UnsafeMutablePointer<WINDOW>) {
-        CNCURSES.keypad(windowHandle, true) // Processes special keys into special codes rather than escape sequences
+        ncurses.keypad(windowHandle, true) // Processes special keys into special codes rather than escape sequences
     }
 
     func setKeyboardBufferingMode(_ keyboardBufferingMode:KeyboardBufferingMode) {
         switch (keyboardBufferingMode) {
         case .bufferingIsOn :
-            CNCURSES.nocbreak()
+            ncurses.nocbreak()
         case .bufferingIsOff:
-            CNCURSES.cbreak()
+            ncurses.cbreak()
         case .halfDelay(let tenthsOfSecond):
-            CNCURSES.halfdelay(Int32(tenthsOfSecond))
+            ncurses.halfdelay(Int32(tenthsOfSecond))
         }
     }
 
     func setScroll(windowHandle:UnsafeMutablePointer<WINDOW>, enabled:Bool) {
-        CNCURSES.scrollok(windowHandle, enabled)
+        ncurses.scrollok(windowHandle, enabled)
     }
 
     func getKey(windowHandle:UnsafeMutablePointer<WINDOW>) -> Key {
-        let code =  CNCURSES.wgetch(windowHandle)
+        let code =  ncurses.wgetch(windowHandle)
         let key = Key(code:code)
         return key
     }
 
     func newWindow(position:Point, size:Size) -> UnsafeMutablePointer<WINDOW> {
-        return CNCURSES.newwin(Int32(size.height), Int32(size.width), Int32(position.y), Int32(position.x))
+        return ncurses.newwin(Int32(size.height), Int32(size.width), Int32(position.y), Int32(position.x))
     }
 
     func moveWindow(windowHandle:UnsafeMutablePointer<WINDOW>, to:Point) {
-        CNCURSES.mvwin(windowHandle, Int32(to.y), Int32(to.x))
+        ncurses.mvwin(windowHandle, Int32(to.y), Int32(to.x))
     }
 
     func getWindowPosition(windowHandle:UnsafeMutablePointer<WINDOW>) -> Point {
@@ -138,50 +139,50 @@ internal class Curses {
     }
 
     func resizeWindow(windowHandle:UnsafeMutablePointer<WINDOW>, size:Size) {
-        CNCURSES.wresize(windowHandle, Int32(size.height), Int32(size.width))
+        ncurses.wresize(windowHandle, Int32(size.height), Int32(size.width))
     }
     
     func refresh(windowHandle:UnsafeMutablePointer<WINDOW>) {
-        CNCURSES.wrefresh(windowHandle)
+        ncurses.wrefresh(windowHandle)
     }
 
     func clear(windowHandle:UnsafeMutablePointer<WINDOW>) {
-        CNCURSES.wclear(windowHandle)
+        ncurses.wclear(windowHandle)
     }
 
     func clearToEndOfLine(windowHandle:UnsafeMutablePointer<WINDOW>) {
-        CNCURSES.wclrtoeol(windowHandle)
+        ncurses.wclrtoeol(windowHandle)
     }
 
     func clearToBottomOfWindow(windowHandle:UnsafeMutablePointer<WINDOW>) {
-        CNCURSES.wclrtobot(windowHandle)
+        ncurses.wclrtobot(windowHandle)
     }
     
     func move(windowHandle:UnsafeMutablePointer<WINDOW>, to:Point) {
-        CNCURSES.wmove(windowHandle, Int32(to.y), Int32(to.x))
+        ncurses.wmove(windowHandle, Int32(to.y), Int32(to.x))
     }
 
     func write(windowHandle:UnsafeMutablePointer<WINDOW>, string:String) {
-        CNCURSES.waddstr(windowHandle, string)
+        ncurses.waddstr(windowHandle, string)
     }
 
     func attributeOn(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
-        CNCURSES.wattron(windowHandle, Int32(attributeValue))
+        ncurses.wattron(windowHandle, Int32(attributeValue))
     }
 
     func attributeOff(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
-        CNCURSES.wattroff(windowHandle, Int32(attributeValue))
+        ncurses.wattroff(windowHandle, Int32(attributeValue))
     }
 
     func attributeSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int) {
-        CNCURSES.wattrset(windowHandle, Int32(attributeValue))
+        ncurses.wattrset(windowHandle, Int32(attributeValue))
     }
 
     func backgroundSet(windowHandle:UnsafeMutablePointer<WINDOW>, attributeValue:Int, character:Character) {
         let unicodeScalars = character.unicodeScalars
         let ascii = UInt32(unicodeScalars[unicodeScalars.startIndex].value)
         let attributeAndCharacter : UInt32 = UInt32(attributeValue) | ascii
-        CNCURSES.wbkgdset(windowHandle, attributeAndCharacter)
+        ncurses.wbkgdset(windowHandle, attributeAndCharacter)
     }
     
     var maxColorCount : Int {
